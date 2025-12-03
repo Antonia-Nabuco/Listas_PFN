@@ -83,3 +83,21 @@ main = do
     doc <- readFile file
     let tree = makeIndexTree doc
     printTree tree
+
+------------
+-- FUNÇÃO printTree MODIFICADA PARA ORDEM DECRESCENTE
+printTree :: Tree -> IO ()
+printTree Leaf = return ()
+printTree (Node w ns left right) = do
+    printTree right -- Visita primeiro a sub-árvore direita (maiores palavras)
+    putStrLn (w ++ " : " ++ show ns) -- Imprime o nó atual
+    printTree left  -- Visita a sub-árvore esquerda (menores palavras)
+-- Resultado: ordem alfabética decrescente.
+
+main :: IO ()
+main = do
+    putStrLn "Digite o nome do arquivo:"
+    file <- getLine
+    doc <- readFile file
+    let tree = makeIndexTree doc
+    printTree tree
