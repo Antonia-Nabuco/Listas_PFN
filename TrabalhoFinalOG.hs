@@ -30,6 +30,8 @@ insOrd x (y:ys)
     | x == y    = y : ys
     | otherwise = y : insOrd x ys
 
+--Ele insere o numero da linha na palavra ja ordenada
+
 --e)
 ins :: Word' -> Int -> Tree -> Tree
 ins w n Leaf = Node w [n] Leaf Leaf
