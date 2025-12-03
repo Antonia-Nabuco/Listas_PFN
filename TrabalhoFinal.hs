@@ -21,6 +21,7 @@ allNumWords ((n, ln):xs) =
     let ws = words ln
         wsLong = filter (\w -> length w > 3) ws
    in  [(n, map toLower w) | w <- wsLong] ++ allNumWords xs
+   {--[(n, w) | w <- wsLong] ++ allNumWords xs--}
 
 
 --d)
