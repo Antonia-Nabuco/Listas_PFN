@@ -53,44 +53,46 @@ makeIndexTree doc =
         pairs  = allNumWords num
     in  mIndexTree pairs
 
+{-printTreeDecrescente :: Tree -> IO ()
+printTreeDecrescente tree = putStrLn (drawD tree)
 
+drawD :: Tree -> String
+drawD Leaf = "·\n"
+drawD (Node w ns left right) =
+    -- Primeiro imprime o lado direito (maiores palavras)
+    drawSubD right "├── " "│   "
+    ++ w ++ " : " ++ show ns ++ "\n"
+    -- Depois imprime o lado esquerdo
+    ++ drawSubD left  "└── " "    "
+
+drawSubD :: Tree -> String -> String -> String
+drawSubD Leaf prefix _ =
+    prefix ++ "·\n"
+drawSubD (Node w ns left right) prefix childIndent =
+    drawSubD right (childIndent ++ "├── ") (childIndent ++ "│   ")
+    ++ prefix ++ w ++ " : " ++ show ns ++ "\n"
+    ++ drawSubD left  (childIndent ++ "└── ") (childIndent ++ "    ")
+-} --no main chamar: printTreeDecrescente tree
 printTreeCrescente :: Tree -> IO ()
 printTreeCrescente tree = putStrLn (drawC tree)
+
 printTreeVisual :: Tree -> IO ()
 printTreeVisual tree = printTreeCrescente tree
 
 drawC :: Tree -> String
-drawC Leaf = ""
+drawC Leaf = "·\n"
 drawC (Node w ns left right) =
     w ++ " : " ++ show ns ++ "\n"
     ++ drawSubC left  "├── " "│   "
     ++ drawSubC right "└── " "    "
 
 drawSubC :: Tree -> String -> String -> String
-drawSubC Leaf _ _ = ""
+drawSubC Leaf prefix _ =
+    prefix ++ "·\n"
 drawSubC (Node w ns left right) prefix childIndent =
     prefix ++ w ++ " : " ++ show ns ++ "\n"
     ++ drawSubC left  (childIndent ++ "├── ") (childIndent ++ "│   ")
     ++ drawSubC right (childIndent ++ "└── ") (childIndent ++ "    ")
-
-------
-{--printTreeDecrescente :: Tree -> IO ()
-printTreeDecrescente tree = putStrLn (drawD tree)
-
-drawD :: Tree -> String
-drawD Leaf = ""
-drawD (Node w ns left right) =
-    w ++ " : " ++ show ns ++ "\n"
-    ++ drawSubD right "├── " "│   "
-    ++ drawSubD left  "└── " "    "
-
-drawSubD :: Tree -> String -> String -> String
-drawSubD Leaf _ _ = ""
-drawSubD (Node w ns left right) prefix childIndent =
-    prefix ++ w ++ " : " ++ show ns ++ "\n"
-    ++ drawSubD right (childIndent ++ "├── ") (childIndent ++ "│   ")
-    ++ drawSubD left  (childIndent ++ "└── ") (childIndent ++ "    ") --}
-
 
 main :: IO ()
 main = do
